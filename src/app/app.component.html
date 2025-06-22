@@ -9,12 +9,24 @@
 
   <div class="courses">
 
-    <course-card *ngFor="let course of courses"
-                 [course]="course">
+    <!-- Old way -->
+<!--    <course-card *ngFor="let course of courses"-->
+<!--                 [course]="course">-->
 
-      <course-image [src]="course.iconUrl"></course-image>
+<!--      <course-image [src]="course.iconUrl"></course-image>-->
 
-    </course-card>
+<!--    </course-card>-->
+
+    <!-- New way -->
+<!--    <course-card *ngFor="let course of (Courses$ | async)"-->
+<!--                 [course]="course">-->
+<!--      <course-image [src]="course.iconUrl"></course-image>-->
+<!--    </course-card>-->
+    @for ( course of (Courses$ | async) ; track  course.id) {
+      <course-card [course]="course">
+        <course-image [src]="course.iconUrl"></course-image>
+      </course-card>
+    }
 
   </div>
 
