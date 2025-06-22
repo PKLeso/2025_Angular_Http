@@ -1,10 +1,7 @@
 import {AfterViewInit, Component, ElementRef, OnInit, QueryList, ViewChild, ViewChildren} from '@angular/core';
-import {COURSES} from '../db-data';
 import {Course} from './model/course';
-import {CourseCardComponent} from './course-card/course-card.component';
-import {HighlightedDirective} from './directives/highlighted.directive';
 import {Observable} from 'rxjs';
-import {HttpClient, HttpParams} from '@angular/common/http';
+import {CourseService} from '../services/course-service.service';
 
 @Component({
     selector: 'app-root',
@@ -13,20 +10,17 @@ import {HttpClient, HttpParams} from '@angular/common/http';
     standalone: false
 })
 export class AppComponent implements OnInit {
-  courses ;
+  //courses ;
 
   // Instead of the above, we can use the following
   // courses$: Observable<Course[]> = this.http.get<Course[]>('api/courses');
   Courses$: Observable<Course[]>;
 
-  constructor(private http: HttpClient) {
+  constructor(private courseService: CourseService) {
 
   }
 
   ngOnInit() {
-    const params = new HttpParams()
-      .set('page', '1')
-      .set("pageSize", 5);
 
     // Current manual way of subscribing to an observable
     // this.http.get('api/courses', { params }).subscribe(courses => {
@@ -34,7 +28,7 @@ export class AppComponent implements OnInit {
     // });
 
     // Instead of the above, we can use the following
-    this.Courses$ = this.http.get<Course[]>('api/courses', { params });
+    this.Courses$ = this.courseService.loadCourses();
   }
 
 
