@@ -16,4 +16,9 @@ export class CourseService {
 
     return this.http.get<Course[]>('api/courses', { params });
   }
+
+  updateCourse(course: Course) {
+    console.log('Test update:: ', course);
+    return this.http.put(`api/courses/${course.id}`, course);
+  }
 }

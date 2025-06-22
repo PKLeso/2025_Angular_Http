@@ -23,7 +23,7 @@
 <!--      <course-image [src]="course.iconUrl"></course-image>-->
 <!--    </course-card>-->
     @for ( course of (Courses$ | async) ; track  course.id) {
-      <course-card [course]="course">
+      <course-card (courseChanged)="updateCourse($event)" [course]="course">
         <course-image [src]="course.iconUrl"></course-image>
       </course-card>
     }
